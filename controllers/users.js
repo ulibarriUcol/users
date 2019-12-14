@@ -11,8 +11,29 @@ module.exports = (app) => {
         res.json(users);
     });
 
+    app.get("/users/:user", async (req, res) => {
+        const { user } = req.params;
+        // res.json(users);
+        // console.log(user);
+        const users = await getUsers();
+        // console.log(users);
+        const matches = users.filter((match) => {
+            const regExp = new RegExp(user, 'gi')
+            return regExp.test(match.name)
+        })
+        // console.log(matches);
+        res.json(matches);
 
+    });
 
 
 
 }
+
+
+// filterFunction = (userInput) =>{
+//     var filteredNames = names.filter((x)=>{ 
+//         return x.includes(userInput)
+//     }
+//     return filteredNames
+//  }
